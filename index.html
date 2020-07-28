@@ -1,63 +1,521 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>dear</title>
-  </head>
-  <body>
-    <h4><<我欲成仙>></h4>
-    <p>
-        我欲成仙 快乐齐天  最终还是那些念
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <!-- 使用禁止缩放页面来完成。 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+  <title>健康登记</title>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- <link rel="stylesheet" href="./css/element-ui.css"> -->
+</head>
+<style>
+  html,body{
+    background: linear-gradient(#25aa69, #2c9a62);
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-y: auto;
+  }  
+  .header{
+    width: auto;
+    height: auto;
+    padding: 15px 20px 20px 20px;
+    background: url('./img/img-bg.png') no-repeat;
+    background-size: 100% auto;
+  }
+  .header span{
+    height: 47px;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: left;
+    color: #ffffff;
+    line-height: 47px;
+    margin-left: 17px;
+  }
+  .header span img{
+    width: 47px;
+    height: 47px;
+    display: block;
+    float: left;
+  }
+  .header .header_title{
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+    color: #ffffff;
+    line-height: 25px;
+    margin-top: 15px;
+  }
+  .header .header_cont{
+    height: 20px;
+    opacity: 0.7;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    color: #ffffff;
+    line-height: 20px;
+    margin-top: 5px;
+  }
+  .content{
+    margin: 10px;
+    display: flex;
+    background:#fff;
+    flex-direction: column;
+    border-radius: 8px;
+    padding-top: 15px;
+  }
+  .content .block{
+    padding: 0px 15px 15px 15px;
+  }
+  .block .el-radio{
+    width: 48%;
+    height: 42px;
+    text-align: center;
+    border-radius: 4px;
+    background: #f4f4f4;
+    color:#666;
+    border: none;
+    margin-right: 0% !important;
+    float: left;
+    font-size: 16px;
+  }
+  .block .el-radio span{ 
+    font-size: 16px;
+  }
+  .el-radio.is-bordered.is-checked{
+    background: #0aaf86;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  .el-radio.is-bordered.is-checked span{
+    color: #fff;
+    font-size: 16px;
+  }
+  .select-box input{
+    background: #f6f7f9;
+    border-radius: 2px;
+    margin-bottom: 6px;
+    border: none;
+  }
+  .require{
+    color: red;
+    font-size: 12px;
+  }
+  .title{
+    margin-bottom: 6px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #32333b;
+    line-height: 22px;
+    position: relative;
+    margin-bottom: 15px;
+  }    
+  .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width: 100%;
+  }
+  .el-select{
+    width: 100%;
+  }
+  .footer{
+    padding: 23px 10px 40px 10px;
+  }
+  .footer span {
+    width: 68px;
+    height: 24px;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: left;
+    color: #ffffff;
+    line-height: 24px;
+  }
+  .footer span img{
+    width: 39px;
+    height: 39px;
+    display: block;
+    float: left;
+    margin-right: 10px;
+    margin-top: 7px;
+  }
+  .footer .header_cont{
+    width: 280px;
+    height: auto;
+    opacity: 0.76;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    color: #ffffff;
+    line-height: 20px;
+    float: left;
+  }
+  .submitBtn{
+    width: 100%;
+    height: 44px;
+    background: #ffffff;
+    border-radius: 22px;
+    margin-top: 20px;
+    outline: none;
+    border:none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-user-select: none;
+    -moz-user-focus: none;
+    -moz-user-select: none;
+  }
+  .el-button--primary.is-active, .el-button--primary:active{
+    background: #fff !important;
+    border-color: #fff !important;
+    color:rgba(43,113,244,1) !important;
+  }
+  .el-button--primary:focus, .el-button--primary:hover{
+    background: #fff !important;
+    border-color: #fff !important;
+    color:rgba(43,113,244,1) !important;
+  }
+  .submitBtn span{
+    color: #2f9b64;
+    font-size: 17px;
+  }
+  .el-radio__inner{
+    display: none;
+  }
+  .block .el-input input{
+    font-size: 14px;
+  }
+  /* .el-message__icon{
+    display: none;
+  } */
+  .footer_title{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+</style>
+<body>
+  <div id="box">
+    <el-row>
+      <el-col :span="24">
+        <div class="header">
+          <!-- <span><img src="./img/img-logo.png" alt="">垂杨柳医院</span> -->
+          <div class="header_title">北京市医疗机构新型冠状病毒肺炎筛查表</div>
+          <div class="header_cont">请根据实际情况进行选择，填写后三日内有效</div>
+        </div>
+      </el-col>
+    </el-row>
+    
+    <el-row>
+      <el-col :span="24">
+         <!-- 第一 -->
+        <div class="content">
+          <div class="block">
+            <div class="title">姓名</div>
+            <div class="select-box">
+              <el-input v-model="realName" placeholder="请输入"></el-input>
+            </div>
+            
+          </div>
 
-        缠缠绵绵总不变  写尽了从前以后
+          <div class="block">
+            <div class="title">手机号码</div>
+            <div class="select-box">
+              <el-input v-model="phone" maxlength="11"  placeholder="请输入"></el-input>
+            </div>
 
-        佳酿红颜  美妙不可言
+          </div>
 
-        怎样勘破命中缘  怎样参透情中线
+          <div class="block">
+            <div class="title">身份证号</div>
+            <div class="select-box">
+              <el-input v-model="citizenId" maxlength="18" minlength="18" placeholder="请输入"></el-input>
+            </div>
 
-        无非是再多一点  再少一点
+          </div>
 
-        谁知深和浅  扯过床前的灯和窗外月
+          <!-- 
 
-        心忽明忽暗  酒空该醒了天该亮了
+          <div class="block">
+            <div class="title">现住址(具体到门牌号)</div>
+            <div class="select-box">
+              <el-input v-model="address"  placeholder="请输入"></el-input>
+            </div>
 
-        再挣脱纠缠  我欲成仙 快乐齐天
+          </div>
+    
+          <div class="block">
+            <div class="title">选择身份</div>
+            <el-radio v-model="attribute" label="患者" border>患者</el-radio>
+            <el-radio v-model="attribute" label="家属" border>家属</el-radio>
+          </div> -->
+       
+        </div>
+        <!-- 第二 -->
+        <div class="content">
+          <div class="block">
+            <div class="title">1. 14天内是否有国内高中风险居住史或旅行史</div>
+            <el-radio v-model="input1" label="是" border>是</el-radio>
+            <el-radio v-model="input1" label="否" border>否</el-radio>
+          </div>
 
-        变幻出神话在风中流传  真心走过每个瞬间
+          <div class="block" style="padding-top:15px;">
+            <div class="title">2. 14天内是否去过境外？</div>
+            <el-radio v-model="input2" label="是" border>是</el-radio>
+            <el-radio v-model="input2" label="否" border>否</el-radio>
+          </div>
 
-        再来对孩子款款笑谈  我欲成仙 快乐齐天
+          <div class="block" v-show="CountryShow">
+            <div class="title">所去国家</div>
+            <div class="select-box">
+              <el-input v-model="input2Country" placeholder="请输入"></el-input>
+            </div>
+          
+          </div>
 
-        让自己对得起美丽寓言  天降我在天地之间
+          <div class="block" v-show="CountryShow">
+            <div class="title">到京日期</div>
+            <div class="select-box">
+              <el-date-picker
+                v-model="input2Date"
+                type="date"
+                placeholder="选择日期"
+                value-format="yyyyMMdd">
+              </el-date-picker>
+            </div>
+          
+          </div>
+          
+        </div>
+        <!-- 第三 -->
+        <div class="content">
+          <div class="block">
+            <div class="title">3. 14天内是否去过中高风险地区：如花乡、新疆维吾尔自治区，新疆建设兵团，乌鲁木齐市等地；如是请填写具体时间和地区</div>
+            <el-radio v-model="input3" label="是" border>是</el-radio>
+            <el-radio v-model="input3" label="否" border>否</el-radio>
+          </div>
 
-        总有故事让后人看  扯过床前的灯和窗外月
+          <div class="block" v-show="MarketShow">
+            <div class="title">地区</div>
+            <el-select v-model="input3Market" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
 
-        心忽明忽暗  酒空该醒了天该亮了
+          <div class="block" v-show="MarketShow">
+            <div class="title">具体时间</div>
+            <div class="select-box">
+              <el-date-picker
+                v-model="input3Date"
+                type="date"
+                placeholder="选择日期"
+                value-format="yyyyMMdd">
+              </el-date-picker>
+            </div>
+          </div>
+          
+        </div>
 
-        再挣脱纠缠  我欲成仙 快乐齐天
+        <!-- 第四 -->
+        <div class="content">
+          <div class="block">
+            <div class="title">4. 14天内是否发热、咳嗽、乏力等症状（有其一症状即选择“是”）</div>
+            <el-radio v-model="input4" label="是" border>是</el-radio>
+            <el-radio v-model="input4" label="否" border>否</el-radio>
+          </div>
 
-        变幻出神话在风中流传  真心走过每个瞬间
+          <div class="block">
+            <div class="title">5. 14天内是否曾接触新冠状病毒感染者</div>
+            <el-radio v-model="input5" label="是" border>是</el-radio>
+            <el-radio v-model="input5" label="否" border>否</el-radio>
+          </div>
 
-        再来对孩子款款笑谈  我欲成仙 快乐齐天
+          <div class="block">
+            <div class="title">6. 14天内是否曾接触来自于有病例报告社区等发热/有呼吸道症状等患者</div>
+            <el-radio v-model="input6" label="是" border>是</el-radio>
+            <el-radio v-model="input6" label="否" border>否</el-radio>
+          </div>
 
-        让自己对得起美丽寓言  天降我在天地之间
+          <div class="block">
+            <div class="title">7. 14天内周围有2名或2名以上发病的患者</div>
+            <el-radio v-model="input7" label="是" border>是</el-radio>
+            <el-radio v-model="input7" label="否" border>否</el-radio>
+          </div>
+         
+          
+        </div>
+      </el-col>
+    </el-row>
 
-        总有故事让后人看  我欲成仙 快乐齐天
-
-        变幻出神话在风中流传  真心走过每个瞬间
-
-        再来对孩子款款笑谈  我欲成仙 快乐齐天
-
-        让自己对得起美丽寓言  天降我在天地之间
-
-        总有故事让后人看  我欲成仙 快乐齐天
-
-        让我对得起美丽寓言  天降我在天地之间
-
-        总该有故事让后人看
-
-</p>
-    <img class="ikqb_img" src="https://iknow-pic.cdn.bcebos.com/d4628535e5dde711d0ae4a88aaefce1b9d16614b?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1" esrc="https://iknow-pic.cdn.bcebos.com/d4628535e5dde711d0ae4a88aaefce1b9d16614b?x-bce-process=image/resize,m_lfit,w_450,h_600,limit_1" style="width:100%;height:auto">
-  </body>
+    <el-row>
+      <el-col :span="24">
+        <div class="footer">
+          <div class="footer_title">
+            <span><img src="./img/icon-tishi.png" alt="">重要提示</span>
+            <div class="header_cont">《传染病防治法》规定隐瞒疫区旅游史或接触史者要承担相对应法律责任</div>
+          </div>
+          <el-button type="primary" round class="submitBtn" @click="submit">提交</el-button>
+        </div>
+      </el-col>
+    </el-row>
+  </div>
+  <script src="./js/vue.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <!-- <script src="./js/axios.min.js"></script>
+  <script src="./js/element-ui.js"></script> -->
+</body>
 </html>
+<script>
+  // var URL = "http://acs.rj-test.com";
+  // var URL = "http://10.8.1.106:8855";
+  var URL = "https://acs3.corelines.cn";
+  
+  
+  var vm = new Vue({
+    el:'#box',
+    data(){
+      return{
+
+        realName:'',
+        phone:'',
+        citizenId:'',
+        address:'',
+        attribute:'',//身份
+
+
+        input1:'',
+        input2:'',
+        input2Country:'',//国家
+        input2Date:'',//到京日期
+
+        input3:'',
+        input3Market:'',
+        input3Date:'',
+
+        input4:'',
+        input5:'',
+        input6:'',
+        input7:'',
+
+        options:[
+          {
+            value: '花乡',
+            label: '花乡'
+          },
+          {
+            value: '新疆维吾尔自治区',
+            label: '新疆维吾尔自治区'
+          },
+          {
+            value: '新疆建设兵团',
+            label: '新疆建设兵团'
+          },
+          {
+            value: '乌鲁木齐市',
+            label: '乌鲁木齐市'
+          },
+        ],
+
+
+        CountryShow:false,
+        MarketShow:false,
+      }
+    },
+    watch:{
+      input2(val){
+        if(val === '是'){
+          this.CountryShow = true
+        }else if(val === '否'){
+          this.CountryShow = false
+          this.input2Country=''//国家
+          this.input2Date=''//到京日期
+        }
+      },
+      input3(val){
+        if(val === '是'){
+          this.MarketShow = true
+        }else if(val === '否'){
+          this.MarketShow = false
+          this.input3Market=''
+          this.input3Date=''
+        }
+      }
+      
+    },
+    methods:{
+      submit () {
+        if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.phone))){
+          this.$message.error('手机号码有误，请重新输入');
+          return false;
+        }
+
+        if(!(/^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/.test(this.citizenId))){
+          this.$message.error("身份证号有误，请重新输入");
+          return false;
+        }
+
+        if(this.input2 === '是'){
+          if(this.input2Country === '' && this.input2Date === ''){
+            this.$message('所去国家与到京日期不为空');
+            return false;
+          }
+        }
+
+        if(this.input3 === '是'){
+          if(this.input3Market === '' && this.input3Date === ''){
+            this.$message('请选择市场与具体时间不为空');
+            return false;
+          }
+        }
+
+        if(this.realName!="" && this.phone!="" && this.citizenId!="" && this.input1!=""  && this.input2!=""   && this.input3!=""   && this.input4!=""   && this.input5!=""   && this.input6!=""   && this.input7!="" ){
+        
+          let obj = {
+            
+            realName:this.realName,
+            phone:this.phone,
+            citizenId:this.citizenId,
+            address:this.address,
+            attribute:this.attribute,//身份
+
+            input1:this.input1,
+            input2:this.input2,
+            input2Country:this.input2Country,//国家
+            input2Date:this.input2Date,//到京日期
+
+            input3:this.input3,
+            input3Market:this.input3Market,
+            input3Date:this.input3Date,
+
+            input4:this.input4,
+            input5:this.input5,
+            input6:this.input6,
+            input7:this.input7,
+          }
+          axios({
+            method: 'post',
+            data: obj,
+            url: URL + "/detection/v1/question/h5/add",
+          }).then(function(res){
+            if(res.data.status === 0){
+              window.location.href='./success.html'
+            }
+          }).catch(function(error){
+            alert(error)
+          })
+        }else{
+          this.$message('请填写完整信息');
+          return false;
+        }
+
+      }
+    
+    }
+   
+  })
+
+
+</script>
+
